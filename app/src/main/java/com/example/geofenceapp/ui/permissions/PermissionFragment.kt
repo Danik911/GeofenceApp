@@ -1,4 +1,4 @@
-package com.example.geofenceapp.ui
+package com.example.geofenceapp.ui.permissions
 
 import android.os.Bundle
 import android.view.LayoutInflater

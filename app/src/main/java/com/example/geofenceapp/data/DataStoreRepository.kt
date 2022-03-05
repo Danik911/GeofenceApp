@@ -1,4 +1,4 @@
-package com.example.geofenceapp
+package com.example.geofenceapp.data
 
 import android.content.Context
 import androidx.datastore.core.DataStore

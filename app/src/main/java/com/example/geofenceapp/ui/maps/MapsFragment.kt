@@ -1,4 +1,4 @@
-package com.example.geofenceapp.ui
+package com.example.geofenceapp.ui.maps
 
 import androidx.fragment.app.Fragment
 
