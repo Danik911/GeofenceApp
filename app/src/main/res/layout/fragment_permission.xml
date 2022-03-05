@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PermissionFragment">
+    tools:context=".ui.PermissionFragment">
 
     <TextView
         android:id="@+id/permission_textView"
@@ -32,13 +32,13 @@
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        app:layout_constraintBottom_toTopOf="@+id/continue_button"
+        app:layout_constraintEnd_toEndOf="@+id/continue_button"
+        app:layout_constraintStart_toStartOf="@+id/continue_button" />
 
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/continue_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"

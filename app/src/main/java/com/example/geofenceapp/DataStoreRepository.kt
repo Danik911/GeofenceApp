@@ -9,6 +9,8 @@ import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.geofenceapp.util.Constants.PREFERENCE_FIRST_LAUNCH
 import com.example.geofenceapp.util.Constants.PREFERENCE_NAME
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.android.scopes.ViewModelScoped
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -19,7 +21,7 @@ import javax.inject.Inject
 private val Context.dataStore by preferencesDataStore(PREFERENCE_NAME)
 
 @ViewModelScoped
-class DataStoreRepository @Inject constructor(private val context: Context) {
+class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     private object PreferenceKey {
         val firstLaunch = booleanPreferencesKey(PREFERENCE_FIRST_LAUNCH)
@@ -29,7 +31,7 @@ class DataStoreRepository @Inject constructor(private val context: Context) {
 
     suspend fun saveFirstLaunch(firstLaunch: Boolean) {
         dataStore.edit { preference ->
-            preference[PreferenceKey.firstLaunch]
+            preference[PreferenceKey.firstLaunch] = firstLaunch
         }
     }
 
@@ -42,7 +44,7 @@ class DataStoreRepository @Inject constructor(private val context: Context) {
             }
         }
         .map { preference ->
-            val firstLaunch = preference[PreferenceKey.firstLaunch]
+            val firstLaunch = preference[PreferenceKey.firstLaunch] ?: true
             firstLaunch
         }
 }

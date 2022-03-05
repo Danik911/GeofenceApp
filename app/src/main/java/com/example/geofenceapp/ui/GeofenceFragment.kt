@@ -1,12 +1,14 @@
-package com.example.geofenceapp
+package com.example.geofenceapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.geofenceapp.R
 
-class Step1Fragment : Fragment() {
+
+class GeofenceFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -14,7 +16,7 @@ class Step1Fragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_step1, container, false)
+        return inflater.inflate(R.layout.fragment_geofence, container, false)
     }
 
 
