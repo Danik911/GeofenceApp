@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_mapsFragment_to_geofenceFragment"
             app:destination="@id/geofenceFragment" />
+        <action
+            android:id="@+id/action_mapsFragment_to_add_geofence2"
+            app:destination="@id/add_geofence" />
     </fragment>
     <navigation
         android:id="@+id/add_geofence"
@@ -89,4 +92,10 @@
             app:popUpTo="@id/geofenceFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <action
+        android:id="@+id/action_global_mapsFragment2"
+        app:destination="@id/mapsFragment"
+        app:launchSingleTop="true"
+        app:popUpTo="@id/mapsFragment"
+        app:popUpToInclusive="true" />
 </navigation>
