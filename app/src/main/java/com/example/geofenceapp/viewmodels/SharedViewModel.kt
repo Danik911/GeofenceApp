@@ -19,6 +19,7 @@ class SharedViewModel @Inject constructor(
     val app = application
     var geoCountryCode = ""
     var geoName = "Default name"
+    var geoId = 0L
 
     //DataStore
 

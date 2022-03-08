@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
-            name="shared_view_model"
+            name="sharedViewModel"
             type="com.example.geofenceapp.viewmodels.SharedViewModel" />
+
         <variable
-            name="step1_view_model"
+            name="step1ViewModel"
             type="com.example.geofenceapp.viewmodels.Step1ViewModel" />
 
     </data>
@@ -29,6 +31,7 @@
             android:textColor="@color/black"
             android:textSize="40sp"
             android:textStyle="bold"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,11 +49,11 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/step1_text_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:counterEnabled="true"
             app:counterMaxLength="20"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -61,6 +64,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/step1_text_input_edit_text"
+                enableNextButton="@{step1ViewModel}"
+                updateGeofenceName="@{sharedViewModel}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="20" />
@@ -73,9 +78,12 @@
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:text="@string/next"
-            android:textStyle="bold"
+            android:textColor="@color/view_state_background_color"
             android:textSize="18sp"
-            android:textColor="@color/blue_500"
+            android:textStyle="bold"
+            android:enabled="@{step1ViewModel.isNextEnabled()}"
+            nextButtonEnabled="@{step1ViewModel.isNextEnabled()}"
+            saveGeofenceId="@{sharedViewModel}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -86,9 +94,9 @@
             android:layout_marginStart="32dp"
             android:layout_marginBottom="32dp"
             android:text="@string/back"
-            android:textStyle="bold"
-            android:textSize="18sp"
             android:textColor="@color/gray"
+            android:textSize="18sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
