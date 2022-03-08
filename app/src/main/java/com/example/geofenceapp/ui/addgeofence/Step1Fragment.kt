@@ -38,7 +38,7 @@ class Step1Fragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Places.initialize(requireContext(), "Your API key")
+        Places.initialize(requireContext(), getString(R.string.api_key))
         placesClient = Places.createClient(requireContext())
         geoCoder = Geocoder(requireContext())
     }
@@ -84,12 +84,14 @@ class Step1Fragment : Fragment() {
                     )
                     sharedViewModel.geoCountryCode = address[0].countryCode
                     enableNextButton()
+                    Log.d("Step1Fragment", sharedViewModel.geoCountryCode)
                 } else {
                     val exception = task.exception
-                    if (exception is ApiException){
+                    if (exception is ApiException) {
                         Log.e("Step1Fragment", exception.statusCode.toString())
                     }
                     enableNextButton()
+
                 }
             }
         }
@@ -98,8 +100,9 @@ class Step1Fragment : Fragment() {
     private fun onBackClicked() {
         findNavController().navigate(R.id.action_global_mapsFragment2)
     }
-    private fun enableNextButton(){
-        if (sharedViewModel.geoName.isNotEmpty()){
+
+    private fun enableNextButton() {
+        if (sharedViewModel.geoName.isNotEmpty()) {
             step1ViewModel.enableNextButton(true)
         }
     }

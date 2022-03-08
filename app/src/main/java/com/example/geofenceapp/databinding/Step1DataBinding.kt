@@ -1,7 +1,10 @@
 package com.example.geofenceapp.databinding
 
 import android.util.Log
+import android.view.View
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isInvisible
 import androidx.core.widget.TextViewCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.BindingAdapter
@@ -35,5 +38,13 @@ fun TextView.step1NextClicked(nextButtonEnabled: Boolean, sharedViewModel: Share
             sharedViewModel.geoId = System.currentTimeMillis()
             this.findNavController().navigate(R.id.action_step1Fragment_to_step2Fragment)
         }
+    }
+}
+@BindingAdapter("showProgressBar")
+fun ProgressBar.showLoading(isNextButtonEnabled: Boolean){
+    if (isNextButtonEnabled){
+        this.visibility = View.GONE
+    } else {
+        this.visibility = View.VISIBLE
     }
 }
