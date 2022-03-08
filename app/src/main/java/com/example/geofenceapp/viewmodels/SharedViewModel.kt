@@ -17,6 +17,8 @@ class SharedViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     val app = application
+    var geoCountryCode = ""
+    var geoName = "Default name"
 
     //DataStore
 
