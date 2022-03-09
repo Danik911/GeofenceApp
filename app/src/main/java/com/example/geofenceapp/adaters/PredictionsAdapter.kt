@@ -28,7 +28,8 @@ class PredictionsAdapter : RecyclerView.Adapter<PredictionsAdapter.MyViewHolder>
         companion object {
             fun from(parent: ViewGroup): MyViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = PredictionsRowLayoutBinding.inflate(layoutInflater)
+                val binding = PredictionsRowLayoutBinding
+                    .inflate(layoutInflater, parent, false)
                 return MyViewHolder(binding)
             }
         }
