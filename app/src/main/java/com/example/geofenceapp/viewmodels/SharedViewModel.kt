@@ -27,8 +27,10 @@ class SharedViewModel @Inject constructor(
     var geoId = 0L
     var geoLocationName = "Search a City"
     var geoLatLong = LatLng(0.0, 0.0)
+    var geoRadius = 500f
 
     var geoCitySelected = false
+    var geofenceReady = false
 
     //DataStore
 

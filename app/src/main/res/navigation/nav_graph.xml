@@ -98,4 +98,5 @@
         app:launchSingleTop="true"
         app:popUpTo="@id/mapsFragment"
         app:popUpToInclusive="true" />
+
 </navigation>
