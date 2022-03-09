@@ -18,7 +18,7 @@ class Step2ViewModel: ViewModel() {
     fun enableNextButton(enable: Boolean){
         _nextButtonEnabled.value = enable
     }
-    fun enableInternet(enable: Boolean){
+    fun isInternetAvailable(enable: Boolean){
         _internetAvailable.value = enable
     }
 }

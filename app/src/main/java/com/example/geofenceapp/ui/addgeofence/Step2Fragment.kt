@@ -19,6 +19,7 @@ import com.example.geofenceapp.R
 import com.example.geofenceapp.adaters.PredictionsAdapter
 import com.example.geofenceapp.databinding.FragmentStep2Binding
 import com.example.geofenceapp.util.ExtensionFunctions.hide
+import com.example.geofenceapp.util.NetworkListener
 import com.example.geofenceapp.viewmodels.SharedViewModel
 import com.example.geofenceapp.viewmodels.Step2ViewModel
 import com.google.android.gms.common.api.ApiException
@@ -30,6 +31,7 @@ import com.google.android.libraries.places.api.net.FetchPhotoRequest
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
 import com.google.android.libraries.places.api.net.PlacesClient
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -44,6 +46,7 @@ class Step2Fragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private val step2ViewModel: Step2ViewModel by viewModels()
     private lateinit var placesClient: PlacesClient
+    private lateinit var networkListener: NetworkListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +63,9 @@ class Step2Fragment : Fragment() {
         // Inflate the layout for this fragment
 
         _binding = FragmentStep2Binding.inflate(inflater, container, false)
+
+        checkInternetConnection()
+
         binding.predictionsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.predictionsRecyclerView.adapter = predictionsAdapter
 
@@ -160,6 +166,21 @@ class Step2Fragment : Fragment() {
             ).show()
         }
     }
+    private fun checkInternetConnection(){
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect { online ->
+                    step2ViewModel.isInternetAvailable(online)
+                    if (online && sharedViewModel.geoCitySelected){
+
+                    } else{
+                        step2ViewModel.enableNextButton(false)
+                    }
+                }
+        }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
