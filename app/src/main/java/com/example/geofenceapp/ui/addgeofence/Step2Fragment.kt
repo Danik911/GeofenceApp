@@ -63,6 +63,9 @@ class Step2Fragment : Fragment() {
         // Inflate the layout for this fragment
 
         _binding = FragmentStep2Binding.inflate(inflater, container, false)
+        binding.sharedViewModel = sharedViewModel
+        binding.step2ViewModel = step2ViewModel
+        binding.lifecycleOwner = this
 
         checkInternetConnection()
 
