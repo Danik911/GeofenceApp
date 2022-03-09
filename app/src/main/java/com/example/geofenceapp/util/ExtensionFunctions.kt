@@ -1,5 +1,7 @@
 package com.example.geofenceapp.util
 
+import android.opengl.Visibility
+import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -12,5 +14,11 @@ object ExtensionFunctions {
                 removeObserver(this)
             }
         })
+    }
+    fun View.hide(){
+        this.visibility = View.GONE
+    }
+    fun View.show(){
+        this.visibility = View.VISIBLE
     }
 }
