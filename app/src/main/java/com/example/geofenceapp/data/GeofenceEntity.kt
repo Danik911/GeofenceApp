@@ -17,5 +17,5 @@ class GeofenceEntity(
     val snapshot: Bitmap
 ) {
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    var id: Int = 0
 }

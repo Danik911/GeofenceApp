@@ -9,6 +9,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.geofenceapp.data.DataStoreRepository
+import com.example.geofenceapp.data.GeofenceEntity
+import com.example.geofenceapp.data.GeofenceRepository
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SharedViewModel @Inject constructor(
     application: Application,
-    private val dataStoreRepository: DataStoreRepository
+    private val dataStoreRepository: DataStoreRepository,
+    private val geofenceRepository: GeofenceRepository
 ) : AndroidViewModel(application) {
 
     val app = application
@@ -31,6 +34,7 @@ class SharedViewModel @Inject constructor(
 
     var geoCitySelected = false
     var geofenceReady = false
+    var geofencePrepared = false
 
     //DataStore
 
@@ -41,6 +45,22 @@ class SharedViewModel @Inject constructor(
             dataStoreRepository.saveFirstLaunch(firstLaunch)
         }
     }
+
+    //Database
+
+    val allGeofences = geofenceRepository.allGeofences.asLiveData()
+
+    fun insertGeofence(geofenceEntity: GeofenceEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            geofenceRepository.insertGeofence(geofenceEntity)
+        }
+    }
+    fun deleteGeofence(geofenceEntity: GeofenceEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            geofenceRepository.deleteGeofence(geofenceEntity)
+        }
+    }
+
 
     fun checkDeviceLocationSettings(context: Context): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
