@@ -7,4 +7,7 @@ object Constants {
 
     const val PREFERENCE_NAME = "geofence_pref"
     const val PREFERENCE_FIRST_LAUNCH = "firstLaunch"
+
+    const val TABLE_ENTITY_NAME = "geofence_entity"
+    const val DATABASE_NAME = "geofence_db"
 }
