@@ -37,6 +37,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private lateinit var map: GoogleMap
+    private lateinit var circle: Circle
 
 
     override fun onCreateView(
@@ -117,8 +118,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
                     Toast.LENGTH_SHORT
                 ).show()
             }
-        }
-        else{
+        } else {
             requestBackgroundLocationPermission(this)
         }
     }
@@ -128,6 +128,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
             if (sharedViewModel.checkDeviceLocationSettings(requireContext())) {
                 drawCircle(location)
                 drawMarker(location)
+                zoomToGeofence(circle.center, circle.radius.toFloat())
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -137,6 +138,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
             }
         }
     }
+
+
 
     private fun drawMarker(location: LatLng) {
         map.addMarker(
@@ -148,7 +151,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
     }
 
     private fun drawCircle(location: LatLng) {
-        map
+        circle = map
             .addCircle(
                 CircleOptions()
                     .center(location)
@@ -156,6 +159,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
                     .strokeColor(ContextCompat.getColor(requireContext(), R.color.blue_700))
                     .fillColor(ContextCompat.getColor(requireContext(), R.color.blue_transparent))
             )
+    }
+    private fun zoomToGeofence(center: LatLng, radius: Float) {
+        map.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                sharedViewModel.getBounds(center, radius), 10
+            ), 1000, null
+        )
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {

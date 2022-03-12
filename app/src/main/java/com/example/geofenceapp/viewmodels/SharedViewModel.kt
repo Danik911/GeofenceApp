@@ -12,10 +12,13 @@ import com.example.geofenceapp.data.DataStoreRepository
 import com.example.geofenceapp.data.GeofenceEntity
 import com.example.geofenceapp.data.GeofenceRepository
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.maps.android.SphericalUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.math.sqrt
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(
@@ -50,12 +53,13 @@ class SharedViewModel @Inject constructor(
 
     val allGeofences = geofenceRepository.allGeofences.asLiveData()
 
-    fun insertGeofence(geofenceEntity: GeofenceEntity){
+    fun insertGeofence(geofenceEntity: GeofenceEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             geofenceRepository.insertGeofence(geofenceEntity)
         }
     }
-    fun deleteGeofence(geofenceEntity: GeofenceEntity){
+
+    fun deleteGeofence(geofenceEntity: GeofenceEntity) {
         viewModelScope.launch(Dispatchers.IO) {
             geofenceRepository.deleteGeofence(geofenceEntity)
         }
@@ -75,6 +79,15 @@ class SharedViewModel @Inject constructor(
             )
             mode != Settings.Secure.LOCATION_MODE_OFF
         }
+    }
+
+    fun getBounds(center: LatLng, radius: Float): LatLngBounds {
+        val distanceFromCenterToCorner = radius * sqrt(2.0)
+        val southWestCorner =
+            SphericalUtil.computeOffset(center, distanceFromCenterToCorner, 225.0)
+        val northEastCorner =
+            SphericalUtil.computeOffset(center, distanceFromCenterToCorner, 45.0)
+        return LatLngBounds(southWestCorner, northEastCorner)
     }
 
 }
