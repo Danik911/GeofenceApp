@@ -75,7 +75,18 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
             isMyLocationButtonEnabled = true
         }
         onGeofenceReady()
+        drawAllGeofences()
 
+    }
+
+    private fun drawAllGeofences() {
+        sharedViewModel.allGeofences.observe(viewLifecycleOwner) { allGeofences ->
+            map.clear()
+            for (geofence in allGeofences) {
+                drawCircle(LatLng(geofence.latitude, geofence.longitude), geofence.radius)
+                drawMarker(LatLng(geofence.latitude, geofence.longitude), geofence.name)
+            }
+        }
     }
 
     private fun onGeofenceReady() {
@@ -126,8 +137,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
     private fun setupGeofence(location: LatLng) {
         lifecycleScope.launch {
             if (sharedViewModel.checkDeviceLocationSettings(requireContext())) {
-                drawCircle(location)
-                drawMarker(location)
+                drawCircle(location, sharedViewModel.geoRadius)
+                drawMarker(location, sharedViewModel.geoName)
                 zoomToGeofence(circle.center, circle.radius.toFloat())
 
                 delay(1500)
@@ -145,21 +156,21 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
     }
 
 
-    private fun drawMarker(location: LatLng) {
+    private fun drawMarker(location: LatLng, name: String) {
         map.addMarker(
             MarkerOptions()
                 .position(location)
-                .title(sharedViewModel.geoName)
+                .title(name)
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
         )
     }
 
-    private fun drawCircle(location: LatLng) {
+    private fun drawCircle(location: LatLng, radius: Float) {
         circle = map
             .addCircle(
                 CircleOptions()
                     .center(location)
-                    .radius(sharedViewModel.geoRadius.toDouble())
+                    .radius(radius.toDouble())
                     .strokeColor(ContextCompat.getColor(requireContext(), R.color.blue_700))
                     .fillColor(ContextCompat.getColor(requireContext(), R.color.blue_transparent))
             )
