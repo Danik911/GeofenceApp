@@ -1,7 +1,7 @@
 package com.example.geofenceapp.ui.maps
 
 import android.annotation.SuppressLint
-import android.graphics.BitmapFactory
+import android.graphics.Bitmap
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
@@ -29,7 +29,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
-    EasyPermissions.PermissionCallbacks {
+    EasyPermissions.PermissionCallbacks, GoogleMap.SnapshotReadyCallback {
 
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = _binding!!
@@ -72,7 +72,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
         map.setOnMapLongClickListener(this)
         map.uiSettings.apply {
             isMapToolbarEnabled = false
-            isMyLocationButtonEnabled = false
+            isMyLocationButtonEnabled = true
         }
         onGeofenceReady()
 
@@ -129,6 +129,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
                 drawCircle(location)
                 drawMarker(location)
                 zoomToGeofence(circle.center, circle.radius.toFloat())
+
+                delay(1500)
+                map.snapshot(this@MapsFragment)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -168,6 +171,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
         )
     }
 
+    override fun onSnapshotReady(snapshot: Bitmap?) {
+        sharedViewModel.geoSnapshot = snapshot
+    }
+
     override fun onPermissionsDenied(requestCode: Int, perms: List<String>) {
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             SettingsDialog.Builder(requireActivity()).build().show()
@@ -203,6 +210,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
         super.onDestroy()
         _binding = null
     }
+
 
 
 }

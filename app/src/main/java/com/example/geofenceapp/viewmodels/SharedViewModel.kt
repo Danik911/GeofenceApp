@@ -2,6 +2,7 @@ package com.example.geofenceapp.viewmodels
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Bitmap
 import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
@@ -34,6 +35,7 @@ class SharedViewModel @Inject constructor(
     var geoLocationName = "Search a City"
     var geoLatLong = LatLng(0.0, 0.0)
     var geoRadius = 500f
+    var geoSnapshot: Bitmap? = null
 
     var geoCitySelected = false
     var geofenceReady = false
