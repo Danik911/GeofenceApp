@@ -132,6 +132,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
 
                 delay(1500)
                 map.snapshot(this@MapsFragment)
+                delay(2000)
+                sharedViewModel.addGeofenceToDatabase(location)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -141,7 +143,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
             }
         }
     }
-
 
 
     private fun drawMarker(location: LatLng) {
@@ -163,6 +164,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
                     .fillColor(ContextCompat.getColor(requireContext(), R.color.blue_transparent))
             )
     }
+
     private fun zoomToGeofence(center: LatLng, radius: Float) {
         map.animateCamera(
             CameraUpdateFactory.newLatLngBounds(
@@ -210,7 +212,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
         super.onDestroy()
         _binding = null
     }
-
 
 
 }

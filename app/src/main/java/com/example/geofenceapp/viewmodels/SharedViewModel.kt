@@ -29,12 +29,12 @@ class SharedViewModel @Inject constructor(
 ) : AndroidViewModel(application) {
 
     val app = application
-    var geoCountryCode = ""
-    var geoName = "Default name"
-    var geoId = 0L
-    var geoLocationName = "Search a City"
-    var geoLatLong = LatLng(0.0, 0.0)
-    var geoRadius = 500f
+    var geoCountryCode: String = ""
+    var geoName: String = "Default name"
+    var geoId: Long = 0L
+    var geoLocationName: String = "Search a City"
+    var geoLatLong: LatLng = LatLng(0.0, 0.0)
+    var geoRadius: Float = 500f
     var geoSnapshot: Bitmap? = null
 
     var geoCitySelected = false
@@ -65,6 +65,19 @@ class SharedViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             geofenceRepository.deleteGeofence(geofenceEntity)
         }
+    }
+
+    fun addGeofenceToDatabase(location: LatLng) {
+        val geofence = GeofenceEntity(
+            geoId,
+            geoName,
+            geoLocationName,
+            location.latitude,
+            location.longitude,
+            geoRadius,
+            geoSnapshot!!
+        )
+        insertGeofence(geofence)
     }
 
 
