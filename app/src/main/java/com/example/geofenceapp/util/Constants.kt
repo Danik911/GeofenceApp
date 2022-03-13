@@ -10,4 +10,9 @@ object Constants {
 
     const val TABLE_ENTITY_NAME = "geofence_entity"
     const val DATABASE_NAME = "geofence_db"
+
+    const val NOTIFICATION_ID = 3
+    const val NOTIFICATION_CHANNEL_ID = "geofence_transition_id"
+    const val NOTIFICATION_CHANNEL_NAME = "geofence_notification"
+
 }

@@ -18,6 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GeofenceApp">
 
+        <receiver android:name=".broadcastreceiver.GeofenceBroadcastReceiver"/>
+
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
