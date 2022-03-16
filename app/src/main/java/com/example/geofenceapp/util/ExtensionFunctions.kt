@@ -21,4 +21,10 @@ object ExtensionFunctions {
     fun View.show(){
         this.visibility = View.VISIBLE
     }
+    fun View.enable(){
+        this.isEnabled = true
+    }
+    fun View.disable(){
+        this.isEnabled = false
+    }
 }

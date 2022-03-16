@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.geofenceapp.R
 import com.example.geofenceapp.databinding.FragmentMapsBinding
+import com.example.geofenceapp.util.ExtensionFunctions.disable
+import com.example.geofenceapp.util.ExtensionFunctions.enable
 import com.example.geofenceapp.util.ExtensionFunctions.hide
 import com.example.geofenceapp.util.ExtensionFunctions.show
 import com.example.geofenceapp.util.Permissions
@@ -137,6 +139,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
     private fun setupGeofence(location: LatLng) {
         lifecycleScope.launch {
             if (sharedViewModel.checkDeviceLocationSettings(requireContext())) {
+                binding.historyFab.disable()
+                binding.addGeofenceFab.disable()
                 drawCircle(location, sharedViewModel.geoRadius)
                 drawMarker(location, sharedViewModel.geoName)
                 zoomToGeofence(circle.center, circle.radius.toFloat())
@@ -147,6 +151,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
                 sharedViewModel.addGeofenceToDatabase(location)
                 delay(2000)
                 sharedViewModel.startGeofence(location.latitude, location.longitude)
+                sharedViewModel.resetValues()
+                binding.historyFab.enable()
+                binding.addGeofenceFab.enable()
             } else {
                 Toast.makeText(
                     requireContext(),

@@ -10,6 +10,7 @@ import android.location.LocationManager
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
@@ -55,6 +56,20 @@ class SharedViewModel @Inject constructor(
 
     //DataStore
 
+    fun resetValues() {
+        geoCountryCode = ""
+        geoName = "Default name"
+        geoId = 0L
+        geoLocationName = "Search a City"
+        geoLatLong = LatLng(0.0, 0.0)
+        geoRadius = 500f
+        geoSnapshot = null
+
+        geoCitySelected = false
+        geofenceReady = false
+        geofencePrepared = false
+    }
+
     val firstLaunch = dataStoreRepository.readFirstLaunch.asLiveData()
 
     fun saveFirstLaunch(firstLaunch: Boolean) {
@@ -93,16 +108,18 @@ class SharedViewModel @Inject constructor(
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun setPendingIntent(geoId: Int): PendingIntent {
         val intent = Intent(app, GeofenceBroadcastReceiver::class.java)
         return PendingIntent.getBroadcast(
             app,
             geoId,
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
+            PendingIntent.FLAG_MUTABLE
         )
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     @SuppressLint("MissingPermission")
     fun startGeofence(
         latitude: Double,
