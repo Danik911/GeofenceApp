@@ -16,7 +16,7 @@ class GeofenceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_geofence, container, false)
+        return inflater.inflate(R.layout.fragment_geofences, container, false)
     }
 
 

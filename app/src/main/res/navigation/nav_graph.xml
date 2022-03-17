@@ -84,7 +84,7 @@
         android:id="@+id/geofenceFragment"
         android:name="com.example.geofenceapp.ui.geofences.GeofenceFragment"
         android:label="fragment_geofence"
-        tools:layout="@layout/fragment_geofence" >
+        tools:layout="@layout/fragment_geofences" >
         <action
             android:id="@+id/action_geofenceFragment_to_mapsFragment"
             app:destination="@id/mapsFragment"
