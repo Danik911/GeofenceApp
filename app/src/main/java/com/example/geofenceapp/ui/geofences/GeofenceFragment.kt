@@ -33,10 +33,16 @@ class GeofenceFragment : Fragment() {
 
         setupRecyclerView()
         observeDatabase()
+        setupBackButton()
 
         return binding.root
     }
 
+    private fun setupBackButton() {
+        binding.toolbar.setNavigationOnClickListener {
+           requireActivity().onBackPressed()
+        }
+    }
 
 
     private fun setupRecyclerView() {

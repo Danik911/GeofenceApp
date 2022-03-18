@@ -2,6 +2,7 @@ package com.example.geofenceapp.adaters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geofenceapp.data.GeofenceEntity
@@ -39,10 +40,11 @@ class GeofencesRecyclerViewAdapter {
             val currentGeofence = geofenceEntity[position]
             holder.bind(currentGeofence)
 
+            holder.binding.deleteImageView.setOnClickListener {
+                Toast.makeText(holder.itemView.context, "Clicked", Toast.LENGTH_SHORT).show()
+            }
+
         }
-
-
-
 
         override fun getItemCount(): Int {
             return geofenceEntity.size
