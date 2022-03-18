@@ -56,6 +56,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
+            loadSnapshot="@{geofencesEntity.snapshot}"
             app:layout_constraintBottom_toBottomOf="@id/white_background"
             app:layout_constraintStart_toStartOf="@id/white_background"
             app:layout_constraintTop_toTopOf="@id/white_background"
@@ -68,7 +69,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="My Geofence"
+            android:text="@{geofencesEntity.name}"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -106,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="46dp"
-            android:text="Smolensk"
+            android:text="@{geofencesEntity.location}"
             app:layout_constraintStart_toEndOf="@+id/locationName_textView"
             app:layout_constraintTop_toTopOf="@+id/locationName_textView" />
 
@@ -114,7 +115,7 @@
             android:id="@+id/latitude_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="223.42"
+            formatCoordinates="@{geofencesEntity.latitude}"
             app:layout_constraintStart_toStartOf="@+id/locationValue_textView"
             app:layout_constraintTop_toBottomOf="@+id/locationValue_textView" />
 
@@ -123,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="233.332"
+            formatCoordinates="@{geofencesEntity.longitude}"
             app:layout_constraintBottom_toBottomOf="@+id/latitude_textView"
             app:layout_constraintStart_toEndOf="@+id/latitude_textView"
             app:layout_constraintTop_toTopOf="@+id/latitude_textView" />
@@ -132,7 +133,7 @@
             android:id="@+id/radiusValue_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Radius"
+            android:text="@{String.valueOf(geofencesEntity.radius)}"
             app:layout_constraintStart_toStartOf="@+id/latitude_textView"
             app:layout_constraintTop_toBottomOf="@+id/latitude_textView" />
 
