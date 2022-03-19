@@ -35,6 +35,11 @@
         <action
             android:id="@+id/action_mapsFragment_to_add_geofence2"
             app:destination="@id/add_geofence" />
+        <argument
+            android:name="geofenceEntity"
+            app:argType="com.example.geofenceapp.data.GeofenceEntity"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <navigation
         android:id="@+id/add_geofence"
