@@ -4,14 +4,14 @@ import android.graphics.Bitmap
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.versionedparcelable.NonParcelField
 import com.example.geofenceapp.util.Constants.TABLE_ENTITY_NAME
-import kotlinx.android.parcel.Parcelize
 import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 
 
-@Parcelize
+
 @Entity(tableName = TABLE_ENTITY_NAME)
+@Parcelize
 class GeofenceEntity(
     val geofenceId: Long,
     val name: String,

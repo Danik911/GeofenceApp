@@ -35,7 +35,7 @@ class Step3Fragment : Fragment() {
         binding.step3DoneTextView.setOnClickListener {
             sharedViewModel.geofenceReady = true
             sharedViewModel.geoRadius = binding.slider.value
-            findNavController().navigate(R.id.action_global_mapsFragment2)
+            findNavController().navigate(R.id.action_global_mapsFragment)
         }
 
         return binding.root

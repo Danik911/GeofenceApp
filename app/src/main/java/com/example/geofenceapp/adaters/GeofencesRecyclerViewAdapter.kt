@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.geofenceapp.data.GeofenceEntity
 import com.example.geofenceapp.databinding.GeofencesRowLayoutBinding
+import com.example.geofenceapp.ui.geofences.GeofenceFragmentDirections
 import com.example.geofenceapp.util.MyDiffUtil
 import com.example.geofenceapp.viewmodels.SharedViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -49,6 +51,11 @@ class GeofencesRecyclerViewAdapter(private val sharedViewModel: SharedViewModel)
 
         holder.binding.deleteImageView.setOnClickListener {
             removeItem(holder, position)
+        }
+        holder.binding.snapshotImageView.setOnClickListener {
+            val action =
+                GeofenceFragmentDirections.actionGlobalMapsFragment(currentGeofence)
+            holder.itemView.findNavController().navigate(action)
         }
 
     }

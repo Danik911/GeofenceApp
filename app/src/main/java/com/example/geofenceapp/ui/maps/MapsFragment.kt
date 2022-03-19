@@ -2,17 +2,21 @@ package com.example.geofenceapp.ui.maps
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.os.Build
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.geofenceapp.R
 import com.example.geofenceapp.databinding.FragmentMapsBinding
 import com.example.geofenceapp.util.ExtensionFunctions.disable
@@ -30,13 +34,17 @@ import com.vmadalin.easypermissions.dialogs.SettingsDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@RequiresApi(Build.VERSION_CODES.S)
 class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickListener,
     EasyPermissions.PermissionCallbacks, GoogleMap.SnapshotReadyCallback {
 
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = _binding!!
 
+    private val args by navArgs<MapsFragmentArgs>()
+
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
 
     private lateinit var map: GoogleMap
     private lateinit var circle: Circle
@@ -78,8 +86,10 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
         }
         onGeofenceReady()
         drawAllGeofences()
+        navigateToExistingGeofence()
 
     }
+
 
     private fun drawAllGeofences() {
         sharedViewModel.allGeofences.observe(viewLifecycleOwner) { allGeofences ->
@@ -88,6 +98,19 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
                 drawCircle(LatLng(geofence.latitude, geofence.longitude), geofence.radius)
                 drawMarker(LatLng(geofence.latitude, geofence.longitude), geofence.name)
             }
+        }
+    }
+
+    private fun navigateToExistingGeofence() {
+        if (args.geofenceEntity != null) {
+            val selectedGeofence = LatLng(
+                args.geofenceEntity!!.latitude,
+                args.geofenceEntity!!.longitude
+            )
+            zoomToGeofence(selectedGeofence, args.geofenceEntity!!.radius)
+            Log.d("MapsFragment" , "Geofence ${selectedGeofence.longitude}")
+        } else {
+            Log.d("MapsFragment" , "Arguments are empty}")
         }
     }
 
@@ -135,6 +158,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMapLongClickLis
             requestBackgroundLocationPermission(this)
         }
     }
+
 
     private fun setupGeofence(location: LatLng) {
         lifecycleScope.launch {

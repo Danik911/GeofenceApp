@@ -98,7 +98,7 @@
             app:popUpToInclusive="true" />
     </fragment>
     <action
-        android:id="@+id/action_global_mapsFragment2"
+        android:id="@+id/action_global_mapsFragment"
         app:destination="@id/mapsFragment"
         app:launchSingleTop="true"
         app:popUpTo="@id/mapsFragment"

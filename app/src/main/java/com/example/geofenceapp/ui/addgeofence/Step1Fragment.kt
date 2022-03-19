@@ -98,7 +98,7 @@ class Step1Fragment : Fragment() {
     }
 
     private fun onBackClicked() {
-        findNavController().navigate(R.id.action_global_mapsFragment2)
+        findNavController().navigate(R.id.action_global_mapsFragment)
     }
 
     private fun enableNextButton() {
