@@ -49,6 +49,7 @@ class GeofenceFragment : Fragment() {
     private fun setupRecyclerView() {
         binding.geofencesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.geofencesRecyclerView.adapter = geofencesAdapter
+
     }
 
     private fun observeDatabase() {

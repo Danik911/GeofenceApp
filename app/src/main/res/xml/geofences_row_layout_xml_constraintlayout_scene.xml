@@ -12,7 +12,7 @@
         <OnSwipe
             motion:touchAnchorId="@+id/white_background"
             motion:dragDirection="dragLeft"
-            motion:touchAnchorSide="right" />
+            motion:touchAnchorSide="middle" />
     </Transition>
 
     <ConstraintSet android:id="@+id/start">

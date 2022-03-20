@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.geofenceapp.R
 import com.example.geofenceapp.data.GeofenceEntity
 import com.example.geofenceapp.databinding.GeofencesRowLayoutBinding
 import com.example.geofenceapp.ui.geofences.GeofenceFragmentDirections
@@ -95,6 +96,7 @@ class GeofencesRecyclerViewAdapter(private val sharedViewModel: SharedViewModel)
         holder: MyViewHolder,
         removedGeofence: GeofenceEntity
     ) {
+        holder.binding.motionLayout.transitionToState(R.id.start)
         sharedViewModel.insertGeofence(removedGeofence)
         sharedViewModel.startGeofence(removedGeofence.latitude, removedGeofence.longitude)
         sharedViewModel.geofenceStopped = false

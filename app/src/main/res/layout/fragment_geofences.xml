@@ -35,6 +35,7 @@
             android:id="@+id/geofences_recycler_view"
             android:layout_width="409dp"
             android:layout_height="673dp"
+            android:layoutAnimation="@anim/recycler_view_anim"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
